@@ -2,6 +2,7 @@ package com.middleware.service.implementation;
 
 import com.middleware.clients.AliasClient;
 import com.middleware.dto.AliasDto;
+import com.middleware.dto.Command.AliasResponseDto;
 import com.middleware.dto.Command.CreateAliasDto;
 import com.middleware.service.IAliasService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class AliasService implements IAliasService {
     private final AliasClient aliasClient;
 
     @Override
-    public AliasDto findAliasByCle(String cle) {
+    public AliasResponseDto findAliasByCle(String cle) {
         return aliasClient.findAliasByCle(cle);
     }
 

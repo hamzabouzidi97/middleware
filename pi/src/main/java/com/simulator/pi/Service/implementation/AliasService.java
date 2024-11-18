@@ -2,6 +2,7 @@ package com.simulator.pi.Service.implementation;
 
 import com.simulator.pi.Service.IAliasService;
 import com.simulator.pi.dto.AliasDto;
+import com.simulator.pi.dto.command.AliasResponseDto;
 import com.simulator.pi.dto.command.CreateAliasDto;
 import com.simulator.pi.entity.Alias;
 import com.simulator.pi.mapper.AliasMapper;
@@ -21,7 +22,7 @@ public class AliasService implements IAliasService {
     private final AliasRepository aliasRepository;
 
     @Override
-    public AliasDto findAliasByCle(String cle) {
+    public AliasResponseDto findAliasByCle(String cle) {
         Optional<Alias> alias = aliasRepository.findAliasByCle(cle);
         return alias.map(AliasMapper.INSTANCE::aliasToAliasDto).orElse(null);
     }

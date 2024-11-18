@@ -1,7 +1,7 @@
 package com.simulator.pi.controller;
 
 import com.simulator.pi.Service.IAliasService;
-import com.simulator.pi.dto.AliasDto;
+import com.simulator.pi.dto.command.AliasResponseDto;
 import com.simulator.pi.dto.command.CreateAliasDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,17 +17,17 @@ public class AliasController {
 
     private final IAliasService aliasService;
 
+
     @GetMapping
-    public AliasDto findAliasByPhoneNumber(@RequestParam("cle") String cle) {
-
-        log.info("findAliasByPhoneNumber: {}", cle);
-        return aliasService.findAliasByCle(cle);
+    public ResponseEntity<AliasResponseDto> getAliasByCle(@RequestParam("cle") String cle){
+        return ResponseEntity.status(HttpStatus.OK).body(aliasService.findAliasByCle(cle));
     }
-
 
     @PostMapping
     public ResponseEntity<Void> saveAlias(@RequestBody CreateAliasDto aliasDto){
         aliasService.saveAlias(aliasDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+
 }

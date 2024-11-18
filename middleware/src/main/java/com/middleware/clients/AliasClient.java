@@ -1,6 +1,6 @@
 package com.middleware.clients;
 
-import com.middleware.dto.AliasDto;
+import com.middleware.dto.Command.AliasResponseDto;
 import com.middleware.dto.Command.CreateAliasDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,22 +17,22 @@ public class AliasClient {
 
     private final RestTemplate restTemplate;
 
-    @Value("${services.pi}/alias")
+    @Value("${services.pi}/")
     private String piBaseUrl;
 
-    public AliasDto findAliasByCle(String cle){
+    public AliasResponseDto findAliasByCle(String cle){
 
         String url = UriComponentsBuilder
-                .fromHttpUrl(piBaseUrl)
+                .fromHttpUrl(piBaseUrl.concat("alias"))
                 .queryParam("cle", cle)
                 .toUriString();
 
-        return restTemplate.getForObject(url, AliasDto.class);
+        return restTemplate.getForObject(url, AliasResponseDto.class);
     }
 
     public ResponseEntity<Void> saveAlias(CreateAliasDto aliasDto) {
         String url = UriComponentsBuilder
-                .fromHttpUrl(piBaseUrl)
+                .fromHttpUrl(piBaseUrl.concat("alias"))
                 .toUriString();
 
         HttpHeaders headers = new HttpHeaders();
@@ -41,5 +41,6 @@ public class AliasClient {
         HttpEntity<CreateAliasDto> request = new HttpEntity<>(aliasDto, headers);
         return restTemplate.postForEntity(url, request, Void.class);
     }
+
 
 }

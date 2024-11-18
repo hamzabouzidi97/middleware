@@ -22,4 +22,4 @@ server:
   port: 8081
 
 services:
-  pi: http://pi:8082/pi
+  pi: http://localhost:8082/pi

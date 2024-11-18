@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: middleware
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/middleware
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      properties:
+        hibernate.format_sql: true
+
+server:
+  servlet:
+    context-path: /middleware
+  port: 8081
+
+services:
+  pi: http://pi:8082/pi

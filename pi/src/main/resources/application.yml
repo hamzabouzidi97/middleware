@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: pi
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/middleware
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      properties:
+        hibernate.format_sql: true
+
+server:
+  servlet:
+    context-path: /pi
+  port: 8082

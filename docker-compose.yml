@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+  database:
+    image: postgres:bookworm
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: middleware
+    ports:
+      - "5432:5432"
+
+  middleware:
+    build:
+      context: ./middleware
+    container_name: middleware-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/middleware
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "8081:8081"
+    depends_on:
+      - database
+      - pi
+
+  pi:
+    build:
+      context: ./pi
+    container_name: pi-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/middleware
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "8082:8082"
+    depends_on:
+      - database

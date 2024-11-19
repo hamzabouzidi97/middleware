@@ -9,6 +9,7 @@ import com.middleware.dto.xmlElement.RequestPayload;
 import com.middleware.service.IAliasService;
 import com.middleware.utils.JsonToXmlConverter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import jakarta.xml.bind.JAXBException;
 @RestController
 @RequestMapping("/alias")
 @RequiredArgsConstructor
+@Slf4j
 public class AliasController {
 
     private final IAliasService aliasService;
@@ -25,7 +27,9 @@ public class AliasController {
 
     @GetMapping
     public ResponseEntity<AliasResponseDto> getAliasByCle(@RequestParam("cle") String cle){
-        return ResponseEntity.ok(aliasService.findAliasByCle(cle));
+        AliasResponseDto aliasResponseDto = aliasService.findAliasByCle(cle);
+        log.info("recherche alias : {}", aliasResponseDto.toString());
+        return ResponseEntity.ok(aliasResponseDto);
     }
 
 
